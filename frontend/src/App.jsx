@@ -21,6 +21,7 @@ import MyPosts from "./pages/MyPosts";
 import AllPosts from "./pages/AllPosts";
 import PostDetails from "./pages/PostDetails";
 import EditPost from "./pages/EditPost";
+import About from "./pages/About";
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -46,6 +47,7 @@ function App() {
           <Route path="/create" element={<CreateBlog />} />
           <Route path="/posts" element={<AllPosts />} />
           <Route path="/logout" element={<LogOut />} />
+          <Route path="/aboutus" element={<About />} />
           <Route path="/editprofile" element={<EditProfile />} />
           <Route path="/posts/:postId" element={<PostDetails />} />
           <Route path="/edit/:id" element={<EditPost />} />
