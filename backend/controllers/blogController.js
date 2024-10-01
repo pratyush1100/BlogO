@@ -3,19 +3,32 @@ import { v2 as cloudinary } from "cloudinary"
 
 export const postBlog = async (req, res, next) => {
     try {
-        const { title, description, tags, } = req.body;
+        console.log("Request Body: ", req.body);
+        console.log("Request Files: ", req.files);
+        const { title, description, tags } = req.body;
+
+        // Validate the fields
         if (!title || !description || !tags) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are mandatory."
-            })
+            });
         }
+
+        // Process tags to ensure it's an array
+        const processedTags = Array.isArray(tags)
+            ? tags // If already an array, use it directly
+            : typeof tags === 'string'
+                ? tags.split(",").map(tag => tag.trim()) // Split by commas if it's a string
+                : []; // Fallback to an empty array if it's neither
+
         const blogData = {
             title,
             description,
-            tags,
-        }
+            tags: processedTags, // Use processed tags
+        };
 
+        // Handle thumbnail upload
         if (req.files && req.files.thumbnail) {
             const { thumbnail } = req.files;
             if (thumbnail) {
@@ -24,34 +37,68 @@ export const postBlog = async (req, res, next) => {
                     if (!cloudinaryResponse || cloudinaryResponse.error) {
                         return res.status(500).json({
                             success: false,
-                            messgae: "Failed to upload thumbnails. "
-                        })
+                            message: "Failed to upload thumbnails."
+                        });
                     }
                     blogData.thumbnail = {
                         public_id: cloudinaryResponse.public_id,
                         url: cloudinaryResponse.secure_url,
-                    }
+                    };
                 } catch (error) {
                     console.log("Error at Uploading thumbnail. ", error);
                     return res.status(500).json({
                         success: false,
-                        messgae: "Failed to upload thumbnails. "
-                    })
+                        message: "Failed to upload thumbnails."
+                    });
                 }
             }
         }
+
         blogData.author = req.user._id;
         const post = await Blog.create(blogData);
         return res.status(201).json({
             success: true,
-            message: "Blog Posted Successfully. ",
+            message: "Blog Posted Successfully.",
             post,
-        })
+        });
     } catch (error) {
         console.log("Error at postBlog: ", error);
-        next(error)
+        next(error);
     }
-}
+};
+
+export const getMyPosts = async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+        if (!userId) {
+            return res.status(401).json("User is not Authenticated.");
+        }
+        const blogposts = await Blog.find({ author: userId }).lean();
+        if (!blogposts.length) {
+            return res.status(404).json({
+                success: false,
+                message: "No blog posts found."
+            });
+        }
+
+        // Process tags for each post to ensure they're arrays
+        const processedPosts = blogposts.map(post => ({
+            ...post,
+            tags: Array.isArray(post.tags) ? post.tags : post.tags.split(",").map(tag => tag.trim()) // Ensure tags are an array
+        }));
+
+        return res.status(200).json({
+            success: true,
+            blogposts: processedPosts // Send processed posts with tags as arrays
+        });
+    } catch (error) {
+        console.log("Error while getting the post: ", error);
+        return res.status(500).json({
+            message: "Error while getting the post."
+        });
+        next();
+    }
+};
 
 
 export const getAll = async (req, res, next) => {
@@ -68,31 +115,7 @@ export const getAll = async (req, res, next) => {
 }
 
 
-export const getMyPosts = async (req, res, next) => {
-    try {
-        const userId = req.user._id;
-        if (!userId) {
-            return res.status(401).json("User is not Authenticated.")
-        }
-        const blogposts = await Blog.find({ author: userId }).lean();
-        if (!blogposts.length) {
-            return res.status(404).json({
-                success: false,
-                message: "No blog posts found."
-            })
-        }
-        return res.status(200).json({
-            success: true,
-            blogposts
-        })
-    } catch (error) {
-        console.log("Error while getting the post : ", error);
-        return res.status(500).json({
-            message: "Error while getting the post."
-        })
-        next()
-    }
-}
+
 
 export const editBlogPosts = async (req, res, next) => {
     try {
@@ -206,4 +229,19 @@ export const deletePost = async (req, res, next) => {
         success: true,
         message: "Post deleted successfully."
     })
+}
+
+
+export const viewPost = async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+        const post = await Blog.findById(id);
+        if (!post) {
+            return res.status(404).json({ success: false, message: "Post not found" });
+        }
+        return res.status(200).json({ success: true, post });
+    } catch (error) {
+
+    }
 }
