@@ -7,7 +7,7 @@ export const postBlog = async (req, res, next) => {
         console.log("Request Files: ", req.files);
         const { title, description, tags } = req.body;
 
-        // Validate the fields
+
         if (!title || !description || !tags) {
             return res.status(400).json({
                 success: false,
@@ -15,20 +15,18 @@ export const postBlog = async (req, res, next) => {
             });
         }
 
-        // Process tags to ensure it's an array
         const processedTags = Array.isArray(tags)
-            ? tags // If already an array, use it directly
+            ? tags
             : typeof tags === 'string'
-                ? tags.split(",").map(tag => tag.trim()) // Split by commas if it's a string
-                : []; // Fallback to an empty array if it's neither
+                ? tags.split(",").map(tag => tag.trim())
+                : [];
 
         const blogData = {
             title,
             description,
-            tags: processedTags, // Use processed tags
+            tags: processedTags,
         };
 
-        // Handle thumbnail upload
         if (req.files && req.files.thumbnail) {
             const { thumbnail } = req.files;
             if (thumbnail) {
@@ -81,15 +79,14 @@ export const getMyPosts = async (req, res, next) => {
             });
         }
 
-        // Process tags for each post to ensure they're arrays
         const processedPosts = blogposts.map(post => ({
             ...post,
-            tags: Array.isArray(post.tags) ? post.tags : post.tags.split(",").map(tag => tag.trim()) // Ensure tags are an array
+            tags: Array.isArray(post.tags) ? post.tags : post.tags.split(",").map(tag => tag.trim())
         }));
 
         return res.status(200).json({
             success: true,
-            blogposts: processedPosts // Send processed posts with tags as arrays
+            blogposts: processedPosts
         });
     } catch (error) {
         console.log("Error while getting the post: ", error);
