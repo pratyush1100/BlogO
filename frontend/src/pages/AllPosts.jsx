@@ -81,7 +81,7 @@ const AllPosts = () => {
   return (
     <div className="flex flex-col p-4">
       <section className="text-3xl font-bold self-center mb-8 underline">
-        Your Posts
+        All Posts
       </section>
       <main className="flex-grow grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-16">
         {loading ? (
