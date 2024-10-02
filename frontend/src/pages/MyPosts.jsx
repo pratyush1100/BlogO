@@ -97,7 +97,7 @@ const MyPosts = () => {
     if (postToDelete) {
       try {
         const response = await fetch(
-          `http://localhost:4000/blog/delete/${postToDelete}`,
+          `https://blogo-fow1.onrender.com/blog/delete/${postToDelete}`,
           {
             method: "DELETE",
             headers: {

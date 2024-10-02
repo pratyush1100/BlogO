@@ -46,7 +46,7 @@ const CreateBlog = () => {
     setIsLoading(true);
 
     try {
-      const res = await fetch("http://localhost:4000/blog/postblog", {
+      const res = await fetch("https://blogo-fow1.onrender.com/blog/postblog", {
         method: "POST",
         body: formData,
         credentials: "include",

@@ -13,17 +13,20 @@ const EditPost = () => {
   });
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
-  const URL = `http://localhost:4000/blog/editblog/${id}`;
+  const URL = `https://blogo-fow1.onrender.com/blog/editblog/${id}`;
 
   const fetchPost = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/blog/view/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
+      const response = await fetch(
+        `https://blogo-fow1.onrender.com/blog/view/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to fetch post");

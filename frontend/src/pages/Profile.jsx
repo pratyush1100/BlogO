@@ -10,7 +10,7 @@ const Profile = () => {
 
   const callProfile = async () => {
     try {
-      const res = await fetch("http://localhost:4000/blog/getuser", {
+      const res = await fetch("https://blogo-fow1.onrender.com/blog/getuser", {
         method: "GET",
         headers: {
           Accept: "application/json",
