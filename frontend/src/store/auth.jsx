@@ -19,13 +19,16 @@ export const AuthProvider = ({ children }) => {
 
   const LogoutUser = async () => {
     try {
-      const res = await fetch("https://blogo-fow1.onrender.com/blog/logout", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
+      const res = await fetch(
+        "https://blogo-backend.onrender.com/blog/logout",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
 
       const data = await res.json();
       if (res.ok) {

@@ -14,7 +14,7 @@ const LoginPage = () => {
     setIsLoading(true);
 
     try {
-      const res = await fetch("https://blogo-fow1.onrender.com/blog/login", {
+      const res = await fetch("https://blogo-backend.onrender.com/blog/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

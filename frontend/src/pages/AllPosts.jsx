@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom";
 const AllPosts = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-  const URL = "https://blogo-fow1.onrender.com/blog/getall";
+  const URL = "https://blogo-backend.onrender.com/blog/getall";
   const navigate = useNavigate();
 
   const fetchAuthorById = async (authorId) => {
     try {
       const response = await fetch(
-        `https://blogo-fow1.onrender.com/blog/getuser/${authorId}`,
+        `https://blogo-backend.onrender.com/blog/getuser/${authorId}`,
         {
           method: "GET",
           headers: {

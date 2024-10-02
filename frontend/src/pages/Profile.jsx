@@ -10,14 +10,17 @@ const Profile = () => {
 
   const callProfile = async () => {
     try {
-      const res = await fetch("https://blogo-fow1.onrender.com/blog/getuser", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
+      const res = await fetch(
+        "https://blogo-backend.onrender.com/blog/getuser",
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
       if (res.ok) {
         const data = await res.json();
         const user = data.user;

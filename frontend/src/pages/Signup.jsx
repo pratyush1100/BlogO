@@ -24,18 +24,21 @@ const Signup = () => {
 
     const { name, email, password, confirmPassword } = user;
 
-    const res = await fetch("https://blogo-fow1.onrender.com/blog/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-        confirmPassword,
-      }),
-    });
+    const res = await fetch(
+      "https://blogo-backend.onrender.com/blog/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          confirmPassword,
+        }),
+      }
+    );
 
     const data = await res.json();
     if (res.status === 400 || !data) {

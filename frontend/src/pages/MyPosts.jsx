@@ -9,13 +9,13 @@ const MyPosts = () => {
   const [data, setData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [postToDelete, setPostToDelete] = useState(null);
-  const URL = "https://blogo-fow1.onrender.com/blog/myposts";
+  const URL = "https://blogo-backend.onrender.com/blog/myposts";
   const navigate = useNavigate();
 
   const fetchAuthorById = async (authorId) => {
     try {
       const response = await fetch(
-        `https://blogo-fow1.onrender.com/blog/getuser/${authorId}`,
+        `https://blogo-backend.onrender.com/blog/getuser/${authorId}`,
         {
           method: "GET",
           headers: {
@@ -97,7 +97,7 @@ const MyPosts = () => {
     if (postToDelete) {
       try {
         const response = await fetch(
-          `https://blogo-fow1.onrender.com/blog/delete/${postToDelete}`,
+          `https://blogo-backend.onrender.com/blog/delete/${postToDelete}`,
           {
             method: "DELETE",
             headers: {

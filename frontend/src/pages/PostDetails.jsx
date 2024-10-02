@@ -11,7 +11,7 @@ const PostDetails = () => {
   const fetchAuthorById = async (authorId) => {
     try {
       const response = await fetch(
-        `https://blogo-fow1.onrender.com/blog/getuser/${authorId}`,
+        `https://blogo-backend.onrender.com/blog/getuser/${authorId}`,
         {
           method: "GET",
           headers: {
@@ -38,7 +38,7 @@ const PostDetails = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://blogo-fow1.onrender.com/blog/view/${postId}`
+          `https://blogo-backend.onrender.com/blog/view/${postId}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch post details");

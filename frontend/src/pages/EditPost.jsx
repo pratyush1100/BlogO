@@ -13,12 +13,12 @@ const EditPost = () => {
   });
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
-  const URL = `https://blogo-fow1.onrender.com/blog/editblog/${id}`;
+  const URL = `https://blogo-backend.onrender.com/blog/editblog/${id}`;
 
   const fetchPost = async () => {
     try {
       const response = await fetch(
-        `https://blogo-fow1.onrender.com/blog/view/${id}`,
+        `https://blogo-backend.onrender.com/blog/view/${id}`,
         {
           method: "GET",
           headers: {
