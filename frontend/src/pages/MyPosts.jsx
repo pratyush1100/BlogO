@@ -9,13 +9,13 @@ const MyPosts = () => {
   const [data, setData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [postToDelete, setPostToDelete] = useState(null);
-  const URL = "http://localhost:4000/blog/myposts";
+  const URL = "https://blogo-fow1.onrender.com/blog/myposts";
   const navigate = useNavigate();
 
   const fetchAuthorById = async (authorId) => {
     try {
       const response = await fetch(
-        `http://localhost:4000/blog/getuser/${authorId}`,
+        `https://blogo-fow1.onrender.com/blog/getuser/${authorId}`,
         {
           method: "GET",
           headers: {
