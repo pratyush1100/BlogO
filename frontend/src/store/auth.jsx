@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
 
   const LogoutUser = async () => {
     try {
-      const res = await fetch("http://localhost:4000/blog/logout", {
+      const res = await fetch("https://blogo-fow1.onrender.com/blog/logout", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
