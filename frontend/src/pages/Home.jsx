@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
 const Home = () => {
   const navigate = useNavigate();
