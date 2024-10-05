@@ -93,7 +93,6 @@ export const getMyPosts = async (req, res, next) => {
         return res.status(500).json({
             message: "Error while getting the post."
         });
-        next();
     }
 };
 
